@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infrastructure Readiness Quiz</title>
+  <link rel="stylesheet" href="style.css?v=6" />
+</head>
+<body>
+
+<section class="section">
+  <div class="container">
+    <div class="quiz-page-header">
+      <a href="./index.html" class="btn btn-secondary home-btn">← Home</a>
+      <h2>Infrastructure Readiness Quiz</h2>
+    </div>
+
+    <div id="readiness-quiz">
+      <div class="quiz-progress-wrap">
+        <span id="question-counter">Question 1 of 14</span>
+      </div>
+     
+      <div class="quiz-card">
+        <h4 id="quiz-question-title"></h4>
+        <div id="quiz-options"></div>
+
+        <div class="quiz-nav">
+          <button class="btn btn-secondary" id="prev-btn" type="button">Previous</button>
+          <button class="btn" id="next-btn" type="button">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" style="margin-top:40px;"></div>
+  </div>
+</section>
+
+<script>
+const quizData = [
+  {
+    question: "How many physical or virtual servers currently support your business-critical applications?",
+    options: [
+      "1–2 servers",
+      "3–5 servers",
+      "6–10 servers",
+      "More than 10 servers"
+    ]
+  },
+  {
+    question: "Are your critical systems currently running with redundancy?",
+    options: [
+      "No redundancy",
+      "Partial redundancy",
+      "Redundant within the same site",
+      "Fully redundant across multiple sites or zones"
+    ]
+  },
+  {
+    question: "If a critical server fails, how long would it typically take to restore operations?",
+    options: [
+      "More than 24 hours",
+      "8–24 hours",
+      "1–8 hours",
+      "Less than 1 hour"
+    ]
+  },
+  {
+    question: "How frequently are backups performed for your critical systems?",
+    options: [
+      "No backup",
+      "Weekly",
+      "Daily",
+      "Multiple times per day"
+    ]
+  },
+  {
+    question: "Have you tested your backup restore process within the last 12 months?",
+    options: [
+      "Never tested",
+      "Tested more than 12 months ago",
+      "Tested within the last 12 months",
+      "Tested regularly every quarter"
+    ]
+  },
+  {
+    question: "What is your acceptable Recovery Point Objective (RPO)?",
+    options: [
+      "More than 24 hours of data loss is acceptable",
+      "Up to 24 hours of data loss",
+      "Less than 4 hours of data loss",
+      "Near-zero or no data loss"
+    ]
+  },
+  {
+    question: "Do you currently have a documented Disaster Recovery plan?",
+    options: [
+      "No DR plan",
+      "Informal or undocumented DR process",
+      "Documented DR plan",
+      "Documented and regularly tested DR plan"
+    ]
+  },
+  {
+    question: "Approximately how much storage is currently used by your organization?",
+    options: [
+      "Less than 1 TB",
+      "1–10 TB",
+      "10–50 TB",
+      "More than 50 TB"
+    ]
+  },
+  {
+    question: "How quickly is your storage requirement growing?",
+    options: [
+      "Minimal growth",
+      "10–20% per year",
+      "20–50% per year",
+      "More than 50% per year"
+    ]
+  },
+  {
+    question: "How long do you need to retain business or compliance-related data?",
+    options: [
+      "Less than 1 year",
+      "1–3 years",
+      "3–7 years",
+      "More than 7 years"
+    ]
+  },
+  {
+    question: "How would you describe your current network connectivity?",
+    options: [
+      "Single internet connection only",
+      "Redundant internet links",
+      "Hybrid connectivity with VPN",
+      "Dedicated, resilient hybrid connectivity"
+    ]
+  },
+  {
+    question: "Do your users currently experience application latency or performance issues?",
+    options: [
+      "Frequently",
+      "Occasionally",
+      "Rarely",
+      "Almost never"
+    ]
+  },
+  {
+    question: "Are your critical systems currently exposed directly to the public internet?",
+    options: [
+      "Yes, without protection",
+      "Yes, with basic firewall protection",
+      "Protected with load balancer / VPN",
+      "Fully protected and segmented"
+    ]
+  },
+  {
+    question: "How confident are you that your current infrastructure can support business growth over the next 2 years?",
+    options: [
+      "Not confident",
+      "Somewhat confident",
+      "Confident",
+      "Very confident"
+    ]
+  }
+];
+
+let currentQuestion = 0;
+let answers = new Array(quizData.length).fill(null);
+
+const questionCounter = document.getElementById("question-counter");
+const questionTitle = document.getElementById("quiz-question-title");
+const optionsContainer = document.getElementById("quiz-options");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const resultContainer = document.getElementById("result");
+const quizContainer = document.getElementById("readiness-quiz");
+
+function renderQuestion() {
+  const item = quizData[currentQuestion];
+  const total = quizData.length;
+  
+  questionCounter.textContent = `Question ${currentQuestion + 1} of ${total}`;
+  
+  questionTitle.textContent = item.question;
+  optionsContainer.innerHTML = "";
+
+  item.options.forEach((option, index) => {
+    const btn = document.createElement("div");
+    btn.className = "quiz-option";
+    if (answers[currentQuestion] === index + 1) {
+      btn.classList.add("selected");
+    }
+    btn.textContent = option;
+    btn.onclick = () => {
+      answers[currentQuestion] = index + 1;
+      renderQuestion();
+    };
+    optionsContainer.appendChild(btn);
+  });
+
+  prevBtn.style.visibility = currentQuestion === 0 ? "hidden" : "visible";
+
+  if (currentQuestion === total - 1) {
+    nextBtn.textContent = "Calculate Result";
+  } else {
+    nextBtn.textContent = "Next";
+  }
+}
+
+function calculateScore() {
+  const unanswered = answers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    alert("Please answer all questions before calculating the result.");
+    return;
+  }
+
+  const total = answers.reduce((a, b) => a + b, 0);
+
+  let title = "";
+  let color = "";
+  let explanation = "";
+  let recommendation = "";
+  let badgeClass = "";
+
+  if (total <= 20) {
+    title = "CRITICAL";
+    color = "#dc2626";
+    badgeClass = "result-badge critical";
+    explanation = "Your current environment shows multiple infrastructure gaps that may create a high risk of downtime, prolonged recovery time and potential data loss. Critical systems may currently depend on single servers, limited backup coverage or insufficient redundancy.";
+    recommendation = "Immediate action is recommended. Focus on backup strategy, disaster recovery, infrastructure redundancy and removal of single points of failure.";
+  } else if (total <= 35) {
+    title = "MEDIUM";
+    color = "#ea580c";
+    badgeClass = "result-badge medium";
+    explanation = "Your environment has some level of resilience, but there are still important gaps that could impact business continuity during an outage or failure. Backup processes, recovery expectations, storage planning or network design may not yet fully support future business needs.";
+    recommendation = "The next priority should be improving recovery readiness, increasing redundancy and reviewing future storage and network requirements.";
+  } else if (total <= 50) {
+    title = "AVERAGE";
+    color = "#ca8a04";
+    badgeClass = "result-badge average";
+    explanation = "Your infrastructure appears generally stable and capable of supporting current business operations. However, there are opportunities to further improve resilience, scalability and operational readiness.";
+    recommendation = "Consider enhancing high availability, Disaster Recovery testing, storage growth planning and hybrid connectivity to strengthen long-term readiness.";
+  } else {
+    title = "EXCELLENT";
+    color = "#16a34a";
+    badgeClass = "result-badge excellent";
+    explanation = "Your environment demonstrates a strong level of infrastructure maturity with good resilience, recovery capability and future scalability. Critical systems appear to be well protected and designed to support business continuity.";
+    recommendation = "Continue to maintain this position by regularly reviewing Disaster Recovery, backup testing, performance monitoring and future capacity planning.";
+  }
+
+  quizContainer.style.display = "none";
+
+  resultContainer.innerHTML = `
+    <div class="result-card">
+      <div class="${badgeClass}">${title}</div>
+      <h3 style="color:${color};">Infrastructure Readiness Result</h3>
+      <p class="result-text">${explanation}</p>
+      <div class="result-recommendation">
+        <strong>Recommended Next Step:</strong><br><br>
+        ${recommendation}
+      </div>
+      <div class="result-actions">
+        <button class="btn btn-secondary" onclick="restartQuiz()">Retake Assessment</button>
+        
+        <a
+          href="mailto:hisham.ahmad@awantec.my?subject=Infrastructure%20Readiness%20Assessment%20Enquiry"
+          class="btn"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  currentQuestion = 0;
+  answers = new Array(quizData.length).fill(null);
+  resultContainer.innerHTML = "";
+  quizContainer.style.display = "block";
+  renderQuestion();
+}
+
+prevBtn.addEventListener("click", () => {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (answers[currentQuestion] === null) {
+    alert("Please select one answer before proceeding.");
+    return;
+  }
+
+  if (currentQuestion === quizData.length - 1) {
+    calculateScore();
+  } else {
+    currentQuestion++;
+    renderQuestion();
+  }
+});
+
+renderQuestion();
+</script>
+
+</body>
+</html>
