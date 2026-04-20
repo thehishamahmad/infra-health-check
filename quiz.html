@@ -4,36 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infrastructure Readiness Quiz</title>
-  <link rel="stylesheet" href="style.css?v=6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
 
-<section class="section">
-  <div class="container">
-    <div class="quiz-page-header">
-      <a href="./index.html" class="btn btn-secondary home-btn">← Home</a>
-      <h2>Infrastructure Readiness Quiz</h2>
-    </div>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="brand-link">
+        <span class="brand-white">Hisham</span>
+        <span class="brand-blue">Ahmad</span>
+      </a>
 
-    <div id="readiness-quiz">
-      <div class="quiz-progress-wrap">
-        <span id="question-counter">Question 1 of 14</span>
+      <div class="nav-links">
+        <a href="./index.html">Overview</a>
+        <a href="./index.html#importance">Why It Matters</a>
+        <a href="./index.html#focus">Focus Areas</a>
+        <a href="./index.html#quiz">Assessment</a>
       </div>
-     
-      <div class="quiz-card">
-        <h4 id="quiz-question-title"></h4>
-        <div id="quiz-options"></div>
+    </div>
+  </nav>
 
-        <div class="quiz-nav">
-          <button class="btn btn-secondary" id="prev-btn" type="button">Previous</button>
-          <button class="btn" id="next-btn" type="button">Next</button>
+  <main class="container">
+    <div class="quiz-shell">
+
+      <div class="quiz-page-header">
+        <a href="./index.html" class="btn btn-secondary home-btn">← Back</a>
+
+        <div class="quiz-page-title">
+          <h2>Infrastructure Readiness Quiz</h2>
+          <div class="quiz-page-line"></div>
         </div>
       </div>
-    </div>
 
-    <div id="result" style="margin-top:40px;"></div>
-  </div>
-</section>
+      <div id="readiness-quiz">
+        <div class="quiz-progress-wrap">
+          <span id="question-counter">Question 1 of 14</span>
+        </div>
+
+        <div class="quiz-card">
+          <h4 id="quiz-question-title"></h4>
+          <div id="quiz-options"></div>
+
+          <div class="quiz-nav">
+            <button class="btn btn-secondary" id="prev-btn" type="button">Previous</button>
+            <button class="btn btn-primary" id="next-btn" type="button">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="result" style="margin-top:40px;"></div>
+    </div>
+  </main>
 
 <script>
 const quizData = [
@@ -179,9 +205,8 @@ const quizContainer = document.getElementById("readiness-quiz");
 function renderQuestion() {
   const item = quizData[currentQuestion];
   const total = quizData.length;
-  
+
   questionCounter.textContent = `Question ${currentQuestion + 1} of ${total}`;
-  
   questionTitle.textContent = item.question;
   optionsContainer.innerHTML = "";
 
@@ -200,12 +225,7 @@ function renderQuestion() {
   });
 
   prevBtn.style.visibility = currentQuestion === 0 ? "hidden" : "visible";
-
-  if (currentQuestion === total - 1) {
-    nextBtn.textContent = "Calculate Result";
-  } else {
-    nextBtn.textContent = "Next";
-  }
+  nextBtn.textContent = currentQuestion === total - 1 ? "Calculate Result" : "Next";
 }
 
 function calculateScore() {
@@ -218,35 +238,30 @@ function calculateScore() {
   const total = answers.reduce((a, b) => a + b, 0);
 
   let title = "";
-  let color = "";
   let explanation = "";
   let recommendation = "";
   let badgeClass = "";
 
   if (total <= 20) {
     title = "CRITICAL";
-    color = "#dc2626";
     badgeClass = "result-badge critical";
-    explanation = "Your current environment shows multiple infrastructure gaps that may create a high risk of downtime, prolonged recovery time and potential data loss. Critical systems may currently depend on single servers, limited backup coverage or insufficient redundancy.";
-    recommendation = "Immediate action is recommended. Focus on backup strategy, disaster recovery, infrastructure redundancy and removal of single points of failure.";
+    explanation = "Your current environment shows multiple infrastructure gaps that may create a high risk of downtime, prolonged recovery time, and potential data loss. Critical systems may currently depend on single servers, limited backup coverage, or insufficient redundancy.";
+    recommendation = "Immediate action is recommended. Focus on backup strategy, disaster recovery, infrastructure redundancy, and the removal of single points of failure.";
   } else if (total <= 35) {
     title = "MEDIUM";
-    color = "#ea580c";
     badgeClass = "result-badge medium";
-    explanation = "Your environment has some level of resilience, but there are still important gaps that could impact business continuity during an outage or failure. Backup processes, recovery expectations, storage planning or network design may not yet fully support future business needs.";
-    recommendation = "The next priority should be improving recovery readiness, increasing redundancy and reviewing future storage and network requirements.";
+    explanation = "Your environment has some level of resilience, but there are still important gaps that could affect business continuity during an outage or failure. Backup processes, recovery expectations, storage planning, or network design may not yet fully support future business needs.";
+    recommendation = "The next priority should be improving recovery readiness, increasing redundancy, and reviewing future storage and network requirements.";
   } else if (total <= 50) {
     title = "AVERAGE";
-    color = "#ca8a04";
     badgeClass = "result-badge average";
-    explanation = "Your infrastructure appears generally stable and capable of supporting current business operations. However, there are opportunities to further improve resilience, scalability and operational readiness.";
-    recommendation = "Consider enhancing high availability, Disaster Recovery testing, storage growth planning and hybrid connectivity to strengthen long-term readiness.";
+    explanation = "Your infrastructure appears generally stable and capable of supporting current business operations. However, there are still opportunities to further improve resilience, scalability, and operational readiness.";
+    recommendation = "Consider enhancing high availability, Disaster Recovery testing, storage growth planning, and hybrid connectivity to strengthen long-term readiness.";
   } else {
     title = "EXCELLENT";
-    color = "#16a34a";
     badgeClass = "result-badge excellent";
-    explanation = "Your environment demonstrates a strong level of infrastructure maturity with good resilience, recovery capability and future scalability. Critical systems appear to be well protected and designed to support business continuity.";
-    recommendation = "Continue to maintain this position by regularly reviewing Disaster Recovery, backup testing, performance monitoring and future capacity planning.";
+    explanation = "Your environment demonstrates a strong level of infrastructure maturity with good resilience, recovery capability, and future scalability. Critical systems appear to be well protected and designed to support business continuity.";
+    recommendation = "Continue to maintain this position by regularly reviewing Disaster Recovery, backup testing, performance monitoring, and future capacity planning.";
   }
 
   quizContainer.style.display = "none";
@@ -254,7 +269,7 @@ function calculateScore() {
   resultContainer.innerHTML = `
     <div class="result-card">
       <div class="${badgeClass}">${title}</div>
-      <h3 style="color:${color};">Infrastructure Readiness Result</h3>
+      <h3>Infrastructure Readiness Result</h3>
       <p class="result-text">${explanation}</p>
       <div class="result-recommendation">
         <strong>Recommended Next Step:</strong><br><br>
@@ -262,11 +277,7 @@ function calculateScore() {
       </div>
       <div class="result-actions">
         <button class="btn btn-secondary" onclick="restartQuiz()">Retake Assessment</button>
-        
-        <a
-          href="mailto:hisham.ahmad@awantec.my?subject=Infrastructure%20Readiness%20Assessment%20Enquiry"
-          class="btn"
-        >
+        <a href="mailto:hisham.ahmad@awantec.my?subject=Infrastructure%20Readiness%20Assessment%20Enquiry" class="btn btn-primary">
           Contact Us
         </a>
       </div>
