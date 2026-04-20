@@ -4,37 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infrastructure Health Check Assessment</title>
-  <link rel="stylesheet" href="style.css?v=4" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="brand-link">
+        <span class="brand-white">Hisham</span>
+        <span class="brand-blue">Ahmad</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#importance">Why It Matters</a>
+        <a href="#focus">Focus Areas</a>
+        <a href="#quiz">Assessment</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
     <div class="container">
+      <span class="badge-top">Infrastructure Advisory Framework</span>
       <h1>Infrastructure Health Check Assessment</h1>
       <p>
-        Welcome. This Infrastructure Health Check Assessment has been designed to help you identify infrastructure risks,
-        recovery gaps, storage readiness and network performance issues before they impact your business operations.
+        Identify infrastructure risks, recovery gaps, storage readiness, and network resilience
+        before they become operational problems. This assessment is designed to provide a practical,
+        business-focused view of your current environment and its readiness for growth and continuity.
       </p>
-      <a href="#overview" class="btn">Explore Assessment Scope</a>
+      <div class="hero-actions">
+        <a href="#overview" class="btn btn-primary">Explore Assessment Scope</a>
+        <a href="#quiz" class="btn btn-secondary">Start Assessment</a>
+      </div>
     </div>
-  </section>
+  </header>
 
-  <!-- Overview Section -->
-  <section id="overview" class="section">
-    <div class="container">
-      <h2>What We Assess</h2>
+  <main class="container">
 
-      <p class="intro-text">
-        The Infrastructure Health Check Assessment is designed to provide a
-        high-level review of your current environment and identify potential
-        infrastructure risks, operational gaps and future growth requirements.
+    <section id="overview">
+      <div class="domain-header">
+        <h2>What We Assess</h2>
+        <div class="domain-line"></div>
+      </div>
+
+      <p class="section-intro">
+        The Infrastructure Health Check Assessment provides a high-level review of your current
+        environment and helps identify infrastructure weaknesses, operational gaps, and future
+        growth requirements before they impact business operations.
       </p>
 
-      <p class="intro-text">
-        The assessment focuses on four key areas that typically have the
-        greatest impact on business continuity, system availability, storage
-        growth and network performance.
+      <p class="section-intro">
+        The assessment focuses on four areas that typically have the greatest effect on business
+        continuity, service availability, storage sufficiency, and network performance.
       </p>
 
       <div class="cards">
@@ -42,9 +69,8 @@
           <h3>Current Infrastructure</h3>
           <p class="subtitle">Know the scale and readiness of your environment</p>
           <p>
-            We review the current infrastructure landscape to understand the
-            number of servers, virtual machines and critical workloads currently
-            supporting the business.
+            We review the current infrastructure landscape to understand the number of servers,
+            virtual machines, and critical workloads currently supporting the business.
           </p>
           <ul>
             <li>Server and VM footprint</li>
@@ -58,8 +84,8 @@
           <h3>Availability &amp; DR</h3>
           <p class="subtitle">Know your recovery gap</p>
           <p>
-            We assess whether the environment is prepared to recover from an
-            outage, infrastructure failure or major incident.
+            We assess whether the environment is prepared to recover from an outage,
+            infrastructure failure, or major incident.
           </p>
           <ul>
             <li>Backup frequency and retention</li>
@@ -73,8 +99,8 @@
           <h3>Storage &amp; Growth</h3>
           <p class="subtitle">Know your data readiness</p>
           <p>
-            We review current storage usage and forecast future data growth to
-            determine whether the environment can support future business demand.
+            We review current storage usage and forecast future data growth to determine
+            whether the environment can support future business demand.
           </p>
           <ul>
             <li>Current storage consumption</li>
@@ -88,8 +114,8 @@
           <h3>Network</h3>
           <p class="subtitle">Know your network performance</p>
           <p>
-            We assess whether the current network is secure, resilient and
-            capable of supporting future growth and hybrid connectivity.
+            We assess whether the current network is secure, resilient, and capable of
+            supporting future growth and hybrid connectivity.
           </p>
           <ul>
             <li>Public vs private access</li>
@@ -99,66 +125,64 @@
           </ul>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Why This Matters -->
-  <section class="section dark">
-    <div class="container">
-      <h2>Why This Assessment Matters</h2>
+    <section id="importance">
+      <div class="domain-header">
+        <h2>Why This Assessment Matters</h2>
+        <div class="domain-line"></div>
+      </div>
 
-      <p class="intro-text">
-        Many organizations only discover infrastructure weaknesses after an
-        outage, failed backup restore, storage shortage or performance issue
-        occurs. This assessment helps identify those gaps earlier.
+      <p class="section-intro">
+        Many organizations only discover infrastructure weaknesses after an outage, failed restore,
+        storage shortage, or performance issue has already occurred. This assessment helps identify
+        those gaps earlier and supports better planning.
       </p>
 
-      <div class="cards">
-        <div class="card dark-card">
+      <div class="feature-grid">
+        <div class="feature-card">
           <h3>Reduce Downtime Risk</h3>
           <p>
-            Identify single points of failure and understand whether the current
-            infrastructure can continue supporting business operations during a
-            disruption.
+            Identify single points of failure and assess whether current infrastructure can continue
+            supporting business operations during disruption.
           </p>
         </div>
 
-        <div class="card dark-card">
-          <h3>Improve Disaster Recovery Readiness</h3>
+        <div class="feature-card">
+          <h3>Improve DR Readiness</h3>
           <p>
-            Assess backup frequency, restore confidence, recovery expectations
-            and the level of Disaster Recovery preparedness across critical
-            systems.
+            Evaluate backup frequency, restore confidence, recovery expectations, and the level of
+            Disaster Recovery preparedness across critical systems.
           </p>
         </div>
 
-        <div class="card dark-card">
+        <div class="feature-card">
           <h3>Plan Future Storage Growth</h3>
           <p>
-            Review whether current storage capacity, retention planning and
-            archive strategy are sufficient to support future data growth.
+            Review whether current storage capacity, retention planning, and archive strategy are
+            sufficient to support future data growth.
           </p>
         </div>
 
-        <div class="card dark-card">
+        <div class="feature-card">
           <h3>Strengthen Network Resilience</h3>
           <p>
-            Evaluate network exposure, performance limitations and readiness for
-            secure connectivity across branch, cloud and hybrid environments.
+            Evaluate network exposure, performance limitations, and readiness for secure connectivity
+            across branch, cloud, and hybrid environments.
           </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Assessment Summary Table -->
-  <section class="section">
-    <div class="container">
-      <h2>Assessment Areas and Review Focus</h2>
+    <section id="focus">
+      <div class="domain-header">
+        <h2>Assessment Areas and Review Focus</h2>
+        <div class="domain-line"></div>
+      </div>
 
-      <p class="intro-text">
-        The table below summarises the key technical focus areas that will be
-        reviewed as part of the Infrastructure Health Check Assessment.
+      <p class="section-intro">
+        The table below summarizes the technical focus areas reviewed as part of the
+        Infrastructure Health Check Assessment.
       </p>
 
       <table class="comparison-table">
@@ -192,28 +216,30 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </section>
+    </section>
 
-  <!-- Interactive Quiz Intro -->
-  <section id="quiz" class="section assessment">
-    <div class="container">
-      <h2>Interactive Infrastructure Readiness Quiz</h2>
-      <p>
-        Click on the link below to proceed with the interactive assessment to determine whether your
-        environment is currently categorised as <strong>Critical</strong>,
-        <strong>Medium</strong>, <strong>Average</strong> or
-        <strong>Excellent</strong>.
+    <section id="quiz" class="assessment">
+      <div class="domain-header">
+        <h2>Interactive Infrastructure Readiness Quiz</h2>
+        <div class="domain-line"></div>
+      </div>
+
+      <p class="section-intro">
+        Proceed with the interactive assessment to understand whether your current environment is
+        categorized as <strong>Critical</strong>, <strong>Medium</strong>, <strong>Average</strong>,
+        or <strong>Excellent</strong>.
       </p>
 
-    <div style="text-align:center; margin-top:30px;">
-    <div class="quiz-button-wrapper">  
-      <a href="./quiz.html" class="btn">Start Assessment</a>
-</div>
+      <div class="hero-actions" style="justify-content:flex-start;">
+        <a href="./quiz.html" class="btn btn-primary">Start Assessment</a>
+      </div>
+    </section>
 
-</div>
-    </div>
-  </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Hisham Ahmad Advisory. Prepared for infrastructure readiness evaluation.
+  </footer>
 
 </body>
 </html>
